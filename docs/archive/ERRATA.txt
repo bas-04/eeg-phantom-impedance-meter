@@ -1,0 +1,341 @@
+=======================================================================
+BUILD GUIDE ERRATA - EEG head phantom impedance meter, Rev B
+Assembled 17 October 2026, for the next revision of the build guide
+=======================================================================
+
+PART 1 - THE EIGHT ACCUMULATED CORRECTIONS
+
+Deferred deliberately on 13 October so bring-up would not be interrupted by
+documentation patches. Three are firmware changes rather than documentation
+fixes; those three are already applied in phantom_meter_v2.ino and are listed
+here so the guide's firmware section matches the code.
+
+1. DOCUMENTATION - Step 2, "U10 pin 1: also about 1.65 V"
+
+   Wrong as written. The sense-amplifier output is INDETERMINATE until U3 and
+   U4 are installed, because nothing defines its input until the sense mux is
+   in place. A builder following the guide measures something arbitrary at that
+   pin and concludes the amplifier is faulty.
+
+   Replace with the VREF-jumper test: tie the sense input to VREF and confirm
+   the output follows. That is a real verification; "about 1.65 V" is not.
+
+2. FIRMWARE - the I2C check says nothing about what failed
+
+   On failure the firmware printed "I2C device missing - check J3 wiring" and
+   parked in while(1). Every Serial.print sits AFTER that check, so the serial
+   monitor stays silent and the builder has no idea which of the five devices
+   is absent. This cost a full debugging round.
+
+   The guide should also state plainly that a silent serial monitor at this
+   point is expected behaviour, not a second fault. And pm_i2c_scan exists
+   precisely for this: it reports to the DISPLAY as well as to serial, which
+   matters because GPIO19/20 are the native USB pins.
+
+3. DOCUMENTATION - the display-to-carrier connection is TWO separate cables
+
+   Power and bus are separate runs: 5V and GND into J3 pins 1 and 2, then
+   SDA/SCL from GPIO19/GPIO20 into J3 pins 3 and 4. The guide reads as though
+   connecting the power cable connects J3. That is exactly the mistake that was
+   made, and the symptom - only the touch controller answering the scan - looks
+   identical to a dead carrier board.
+
+4. DOCUMENTATION - the MCP4725 footprint transposition erratum
+
+   Offer the adapter-board approach alongside the hand-wiring fix. A small
+   purpose-made PCB is the more durable answer and anyone building from the
+   guide should know it is an option rather than discovering hand-wiring is the
+   only path.
+
+5. DOCUMENTATION - the touch coordinate transform
+
+   NOTE: this entry was first written as a plain 180-degree inversion. That was
+   wrong and the corrected text is what belongs in the guide.
+
+   The CYD's GT911 is inverted on both axes AND compressed, because the
+   controller carries the 480x272 configuration of the ESP32-4827S043 that
+   shares its PCB. The measured transform is
+
+       x = (785.1 - raw_x) * 1.7143
+       y = (471.7 - raw_y) * 1.8223
+
+   The guide must also say WHY one corner tap cannot establish this: near a
+   corner a plain inversion and an inverted-and-scaled mapping agree, and they
+   only diverge mid-screen. Five points, not one. This is a characteristic of
+   the display, not something each builder should have to rediscover.
+
+6. NOT RECOVERED
+
+   The record shows the list going from five items to six at the same time the
+   touch entry was rewritten, but the sixth item's text did not survive in a
+   form I can read back, and I will not invent it. Candidates from that part of
+   the work, any of which would be worth a guide note:
+
+     - GFX Library for Arduino 1.6.9 has no bare BLACK / WHITE constants; use
+       raw RGB565 values, which are version-independent
+     - every .ino in a folder compiles together, so a second sketch dropped
+       beside the first produces redefinition errors
+     - TX and TY are predefined as UART pin numbers in pins_arduino.h and
+       cannot be used as variable names
+     - Arduino IDE board settings are remembered per SAVED sketch location
+
+   If you remember which it was, say so and I will write it up properly.
+
+7. FIRMWARE - the Mode A line was drawn in red
+
+   The mode line's colour was chosen by refsValid regardless of mode, so Mode A
+   inherited a warning colour from a check that does not apply to it. Mode A
+   now draws in neutral grey. Cosmetic, but a false alarm sitting on screen is
+   exactly what you do not want once red and green start meaning something.
+
+8. FIRMWARE - the LEDs could only ever blink
+
+   measureRaw() called modeSwitches(mask, false, false, false), blanking both
+   LEDs on every reading, many times a second. They could flicker but never
+   indicate. Now the live mode and reference states are passed through.
+
+   ON THE RECORD, because it is a real trade: LED current now flows DURING
+   measurement rather than being switched off, through the same expander that
+   drives the SW1-SW6 analog switches. At 2.5 uA test current with the sense
+   path in its own amplifier chain this should not matter. If step 5 shows
+   readings that shift with mode, suspect this first - it is a one-line revert.
+
+
+PART 2 - NEW MATERIAL, NOT ERRATA
+
+The guide was written for one display. It now supports two, and bring-up has
+advanced. These are new sections rather than corrections to existing text.
+
+  DUAL DISPLAY SUPPORT. board_config.h, one PM_BOARD line, selecting the RGB
+  pin map and timing, the touch address and the touch transform. It also turns
+  PSRAM-disabled and USB-CDC-On-Boot-enabled into compile-time errors, because
+  both produce silent failures: no PSRAM means the 768 kB framebuffer cannot be
+  allocated and the screen simply stays dark.
+
+  THE SECOND DISPLAY. Elecrow CrowPanel 7.0 inch, SKU DIS08070H. Same
+  resolution, so every drawing coordinate is unchanged; a 7 inch panel at the
+  same pixel count just makes the hexagons bigger, which matters for a student
+  working at arm's length. Its GT911 answers at 0x5D, NOT the 0x14 that
+  published configs for this panel claim. Its PCA9557 at 0x18 is expected.
+
+  ELECROW POWER. None of its three connectors supplies 5V, so the carrier needs
+  its own feed - a two-port 5V charger, grounds tied. The I2C connector's 3V3
+  wire must be cut and insulated, not merely left unplugged: J3 pin 1 is a 5V
+  input with no blocking diode, so tying 3V3 to it back-feeds 5V onto the
+  ESP32-S3's rail and kills it. See STEP4_wiring.txt.
+
+  BOTH TOUCH TRANSFORMS. CYD inverted and compressed (slope 0.58); Elecrow
+  inverted at essentially full scale. Both measured over five points. The guide
+  should present the calibration procedure rather than the numbers alone, since
+  a third display would need its own fit.
+
+  DRDY IS GONE. J3 is a four-wire interface. The guide must carry the trap:
+  conversionComplete() CANNOT replace the interrupt, because the ADCs run in
+  continuous mode where the OS bit always reads busy. Fixed-interval reading at
+  1000 us against a 1163 us conversion period is the working answer.
+
+  SALT-BRIDGE DETECTION. New feature, firmware only, behind #define
+  SALT_BRIDGE. Deserves its own guide section covering the 31-pair table, the
+  gravity reasoning behind the tiers, and the threshold tuning the builder will
+  have to do against real gel.
+
+  TWO IMPROVEMENTS that are not errata but belong in the firmware section: the
+  die-temperature readout in the header, and the incremental-redraw rewrite
+  that removed the head-map flicker.
+
+  BRING-UP STATUS. Steps 1 through 4 complete on the Elecrow as of 16 October:
+  panel, touch, touch calibration, and all seven I2C addresses with the carrier
+  attached. Steps 5 and 6 wait on U1-U6.
+
+24 Oct 2026 - calibration showed OPEN on every standard
+  Cause: firmware treated any drive current under 0.375 uA (15 % of the 2.5 uA
+  design) as an open circuit. This board drives about 0.43-0.7 uA, so the
+  short, 1k, 4.7k and 100k all fell under the line. Fixed in phantom_meter_v2:
+  the open test is now an absolute 0.02 uA floor, and the calibration screen
+  shows a "drive" column (current per standard) plus an amber warning when the
+  drive is under half of design. Low drive is still worth fixing (R1-R4, R17).
+
+24 Oct 2026, evening - calibration: OPEN everywhere, "ADC returned constant data"
+  The 0.375 uA fix above was real but was not this fault. The current ADC
+  returned one constant value because measureRaw read it back-to-back with no
+  gap. pm_analog_probe method 1, the only method seen working, waits 12 ms after
+  each DAC step and takes ONE read pair. measureRaw now does exactly that, once
+  per half period (32 pairs per 16-period measurement, about 2x the noise of
+  the hoped-for rate; scan speed unchanged). The open channel no longer counts
+  toward the "constant data" verdict, since with no current it can legitimately
+  repeat one value.
+
+24 Oct 2026, night - ROOT CAUSE of all "constant data" / all-OPEN calibrations
+  PCB ERROR (Rev B): M3's ALRT pin (header pin 6, the ADS1115 at 0x49) is
+  joined to TIA_OUT, the same net as its A0 input. ALRT is an open-drain
+  output. The Adafruit ADS1X15 library switches it to conversion-ready mode
+  on every read, after which it pulls the transimpedance amplifier's output
+  to ground between conversions. The probe showed the current channel clipped
+  at +32767 on the short, 1k and 4.7k, and a 0.8 V false offset on the 100k.
+  (An earlier copy of this note also blamed the low drive current on ALRT.
+  That was wrong - see the next entry.)
+  FIRMWARE FIX (no soldering): phantom_meter_v2 and pm_analog_probe now read
+  both ADS1115s through their registers with the comparator off, so ALRT
+  stays high-impedance. No library read is made on the 0x49 converter.
+  PERMANENT FIX (optional, after the firmware is confirmed): clip pin 6 (ALRT)
+  off M3's header so it no longer reaches the socket. M3's ALRT is unused.
+  Any sketch that calls the library on 0x49 will show the fault until then.
+  Rev C: leave M3 pin 6 unconnected.
+
+24 Oct 2026, night - first PASS: drive current still about 0.3 uA (design 2.5)
+  With ALRT fixed, calibration passes but drive is still ~0.3 uA, the 4.7k
+  check reads 10.1k instead of 4.7k, and the short reads -1112 ohm after the
+  fit. The probe's raw counts also show a DC current of roughly 5 uA flowing
+  through the standards, about twenty times the AC test current. A Howland
+  pump working as designed puts NO DC current through the load. This pattern
+  fits U9B (pins 5-7) stuck at a supply rail: a damaged op-amp section, or an
+  open or wrong-value resistor in R1-R4, most likely R2 (pin 6 to pin 7).
+  Check, power off, with U9 lifted from its socket, measuring at the SOCKET:
+     pin 6 - pin 10   R1  100k        pin 6 - pin 7   R2  100k
+     pin 5 - pin 1    R3  100k        pin 7 - pin 5   R4  100k
+     pin 9 - pin 8    R18 200k
+  Then refit U9 and U10 swapped (both MCP6004) and recalibrate. U10 only
+  uses section A, so a dead U9B moves to an unused spare.
+
+27 Oct 2026 - DAC address
+  The replacement generic MCP4725 module answers at 0x60, not 0x62. Every
+  sketch now searches 0x60-0x63 and uses whichever DAC it finds. The cause of
+  the 2.24 V DAC supply on the earlier module (M1 pin 1 read 3.314 V on the
+  board side, 2.24 V on the module) is still to be confirmed on the adapter.
+
+27 Oct 2026 - calibration PASS, drive 2.50 uA, 4.7k check 4708: chain is good.
+  Step 6: a 4.72 kohm lead J1 pin 1 to J2 pin 1 read 5.2 k on Fp1. The
+  standards return through U6 + SW5; Fp1 returns through U5, a different chip,
+  and HC4067 switch resistance at 3.3 V / mid-supply varies a few hundred ohm
+  between chips. Added a per-site zero (ZERO SITES on the PASS screen, needs a
+  straight-through DB25 M-M cable), stored in flash and subtracted from Mode A
+  readings. See STEP56_bringup.txt step 16.
+
+30 Oct 2026 - Mode B reference rule and ear readings
+  REFS VALID now requires EACH ear under 5 k, measured directly, the same
+  standard as a scalp site. The old rule tested A1 and A2 in series against
+  20 k, which passed an ear near 15 k. The mode line names the bad ear:
+  FIX A1, FIX A2 or FIX A1+A2.
+  Bug fixed in the same change: in Mode B the A1 and A2 hexagons always read
+  0.0, because the decomposition connected the ear's own phantom insert, which
+  was also the drive point, straight to the amplifier. The ears are now
+  measured directly in both modes.
+
+31 Oct 2026 - erratic sites after a cold power-up on the CYD, cured by RESET
+  VREF is a 100k/100k divider filtered by C10 (10 uF): 0.5 s time constant,
+  about 2.5 s to settle. The firmware read it ONCE at boot and centred the
+  DAC's square wave on that value. The Elecrow's carrier had its own supply and
+  was normally powered and settled before the display booted; the CYD powers
+  both boards at once, so VREF was read while still rising. The DAC was centred
+  too low, a DC current jammed the current pump (the same failure as the
+  2.24 V DAC), and the sites read OPEN or random high values until RESET.
+  Fixed: measureVref() now reads every 100 ms until three readings agree within
+  2 mV (6 s ceiling), and is repeated before every calibration RETRY.
+
+1 Nov 2026 - first gelled-cap test
+  1. Salt-bridge detection never ran: every phantom_meter_v2.ino sent during
+     bring-up had SALT_BRIDGE 0, so each update undid the user's change to 1.
+     Now shipped as 1.
+  2. Every Mode A site read 0.0. A tin electrode and a carbon-filled insert in
+     salty gel form a galvanic cell: a steady DC voltage in each site loop. The
+     ADC range was chosen from impedance alone, so low-impedance sites got the
+     +/-0.256 V range, and the DC (x4 sense gain) clipped the signal to nothing.
+     Simulated: 2 k with 100 mV of DC read 0 ohm on the old range. Now the range
+     is chosen from the peak voltage actually seen, a clipped reading is
+     repeated one range lower, a site whose DC saturates the sense amplifier
+     (about 0.4 V) shows "DC", and the focus panel shows the DC offset in mV.
+     Mode B was largely spared because its two electrode junctions face in
+     opposite directions and their DC mostly cancels.
+
+4 Nov 2026 - bridge alarm made unmistakable; MUTE and RECAL buttons
+  The first real bridge (Fz to GND) was easy to miss. While any bridge is
+  present: the bridged hexagons invert red/white, label and all; the header
+  bar flashes red and names the pair; the panel's bridge line flashes as a
+  filled box; and a beep repeats every second. MUTE silences the bridges
+  already present (tap again to un-mute); a NEW bridge un-mutes it. RECAL
+  re-measures VREF, reruns self-calibration and shows the calibration screen,
+  with CONTINUE back to the map - no more USB pulls or RESET presses.
+  Also seen that day: every scalp site in Mode A read "DC" (electrode offset
+  above ~0.36 V), ears +310 mV and +6 mV with Ten20. Next: check Mode B; if it
+  also shows DC, set U10A to gain 1 (R8 wire link, R9 removed, G_SENSE 1.0).
+
+5 Nov 2026 - GND left out of salt-bridge checking
+  GND is measured and prepped as before, but its three bridge pairs (Fz-GND,
+  GND-Fp1, GND-Fp2) are no longer scanned: on this phantom GND and Fz are 4 mm
+  apart and the conductive insert completes a bridge from gel merely touching
+  it. Shrinking or masking the GND insert was rejected because it would remove
+  the cap-alignment leeway. Switch: BRIDGE_CHECK_GND in phantom_meter_v2.ino.
+  The sweep now covers 28 pairs, about 19.4 measurements per cycle.
+
+5 Nov 2026 (b) - sense gain 1, firmware date on screen
+  R8 bridged on the bench board, so G_SENSE is now 1.0f in phantom_meter_v2.
+  An UNMODIFIED board needs 4.0f. The calibration screen now prints the
+  firmware date and sense gain in its bottom-left corner ("firmware
+  2026-11-05 b   sense gain 1"), because the bridge alarm and MUTE/RECAL
+  buttons were reported missing on the display although they were in the file
+  sent - an older upload was still running.
+
+5 Nov 2026 (c) - cosmetic: the focus readout (FOCUS, site, reading, DC offset)
+  now sits on its own lighter, outlined card, separate from MUTE, RECAL and the
+  mode and bridge lines. Firmware date on the calibration screen: 2026-11-05 c.
+
+8 Nov 2026 - phantom scale for the scalp sites
+  Bench: calibration PASS at gain 1 (drive 2.48 uA, 4.7k check 4660); site zero
+  437-954 ohm on U5 sites, near 0 on U6; DC offsets ~440 mV now measured
+  through. After careful prep and a touch-up, Mode A read 4.3-13 k and Mode B
+  agreed within 1-2 k: the readings are real, the floor set by tin/Electro-Gel
+  and gel/carbon junctions with no skin to abrade. PHANTOM_SCALE (0.5) now
+  multiplies scalp-site and GND readings; A1/A2 and the reference check stay in
+  true ohms. 1.0 gives true ohms. Shown on the calibration screen.
+  Also: the open channel's drive figure turns red only above 0.5 uA. With the
+  phantom and cap attached it picks up ~0.2 uA through cable capacitance while
+  still reading OPEN.
+
+8 Nov 2026 (b) - scan progress bar in the header
+  22 segments, one per site, fill as the background scan advances; the whole
+  bar turns green for 0.8 s when a full scan completes, and the time the last
+  full scan took is shown beside it. Hidden while a bridge alarm owns the
+  header. Firmware date on the calibration screen: 2026-11-08 b.
+
+9 Nov 2026 - buzzer volume
+  The piezo (PS1240) resonates near 4 kHz; the old chirp toggled it at about
+  1.4-2 kHz through the library, so it was quiet. chirp() now times each
+  half-cycle with micros() and writes U12 GPIOA directly, so the tone can sit
+  at resonance. BEEP_VOLUME (0 silent, 1 soft ~1.5 kHz, 2 medium ~2.7 kHz,
+  3 loud at BEEP_HZ_LOUD, default 4000) sets loudness by moving the pitch
+  toward or away from resonance. Tune BEEP_HZ_LOUD 3600-4400 by ear if needed.
+  More volume still would need hardware: drive LS1 differentially (its GND pin
+  to a spare expander output toggled in antiphase, +6 dB) or swap in a louder
+  transducer.
+
+9 Nov 2026 (b) - per-event beep switches
+  BEEP_ON_PASS (default on), BEEP_ON_FAIL (new, default off: two short low
+  beeps when the focused site rises back above 5 k), BEEP_ON_BRIDGE (onset
+  triple beep and the once-a-second alarm; off also greys MUTE) and
+  BEEP_ON_MODE (footswitch confirmation). Threshold beeps now follow the focused
+  site only: tapping a different site never beeps, and there is hysteresis
+  (pass at 5.00 k, fail above 5.25 k) so a reading hovering at the line cannot
+  chime repeatedly. Firmware date 2026-11-09 b.
+
+22 Nov 2026 - speaker sounds on the Elecrow (WAV files from the TF card)
+  New file phantom_meter_v2/pm_audio.h. The CrowPanel 7.0's own NS4168 I2S
+  amplifier (BCLK 42, LRCLK 18, DATA 17) drives an 8 ohm speaker on its SPK
+  socket; the TF slot is SPI (CS 10, MOSI 11, SCK 12, MISO 13). Four files in
+  the card's top folder:
+    opening.wav     once at power-up; calibration waits for it to finish
+                    (SOUND_WAIT_FOR_OPENING; a tap skips it)
+    click.wav       each press on an electrode site (one press, one click)
+    modechange.wav  Mode A/B change, from the header tap or the footswitch
+    saltbridge.wav  looped while any bridge is present; MUTE stops it, a new
+                    bridge or un-muting restarts it, clearing stops it
+  Files are loaded into PSRAM at start-up (converted to 16-bit mono) and
+  played by a task on core 0, so playback never touches the SD card or delays
+  a measurement. A click is mixed over the bridge alarm, not instead of it.
+  Accepts uncompressed PCM WAV, 8/16/24/32-bit or 32-bit float, mono/stereo,
+  8-96 kHz; files over SOUND_MAX_SECONDS (30) are cut. A sound whose file
+  loaded replaces the piezo for that event; a missing file falls back to the
+  piezo. The calibration screen lists each file's length or the problem, just
+  above the firmware line. SOUND_VOLUME (master, %) and VOL_OPENING / CLICK /
+  MODE / BRIDGE (% of master) set levels. CYD: compiled out, piezo as before.
+  Note: GPIO17/18 are also on the Elecrow's UART1 socket - leave it empty.
+  Firmware date 2026-11-22 a.
