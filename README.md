@@ -85,9 +85,9 @@ This is laboratory teaching equipment for a plastic head. **It has no patient is
 
 ## Credits
 
-- **Sebastian Perez**, UTSA Electrical Engineering: electrical design, firmware, build and bring-up.
-- **Dr. Mark Jones**, UTSA: academic advisor.
-- Design, firmware and documentation were developed with AI assistance (Anthropic's Claude).
+- **Dr. Mark Jones**, UTSA: Director Neurofeedback Program.
+- **Sebastian Perez**, UTSA: Electrical Engineering Senior.
+- Claude was used to assist with Design, firmware and documentation.
 
 ## License
 
