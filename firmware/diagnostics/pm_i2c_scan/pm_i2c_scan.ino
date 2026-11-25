@@ -1,21 +1,21 @@
 /* pm_i2c_scan - EEG Head Phantom impedance meter, bring-up tool 1 of 3
  *
  * Scans the I2C bus and lists every address that answers, on the DISPLAY as
- * well as the serial monitor. The display output is the important one: on both
- * supported boards GPIO19/20 are the ESP32-S3's native USB pins, so serial is
- * not reliably usable while I2C is in play.
+ * well as the serial monitor. The display output is the important one:
+ * GPIO19/20 are the ESP32-S3's native USB pins, so serial is not reliably
+ * usable while I2C is in play.
  *
- * Select your board in board_config.h. Board settings are listed there too.
+ * Board settings are listed in board_config.h.
  *
  * Expected on a healthy system:
  *   0x20 / 0x21  MCP23017 port expanders U11 / U12 (carrier board)
  *   0x48 / 0x49  ADS1115 ADC modules in M2 / M3   (carrier board)
  *   0x62 or 0x60 MCP4725 DAC module in M1         (carrier board)
  *                (0x62 = Adafruit module, 0x60 = most generic modules)
- *   0x5D         GT911 touch controller - CYD
- *   0x14         GT911 touch controller - Elecrow CrowPanel 7.0
- *   0x18-0x1B    PCA9557 expander - Elecrow only, handles panel reset.
- *                Expected on that board; not a fault.
+ *   0x5D         GT911 touch controller (display) - may only appear after a
+ *                sketch has initialised touch; that is normal
+ *   0x18         PCA9557 expander (display), handles panel reset.
+ *                Expected; not a fault.
  *
  * Reading the result:
  *   touch address only    -> bus is not reaching the carrier board. Check that

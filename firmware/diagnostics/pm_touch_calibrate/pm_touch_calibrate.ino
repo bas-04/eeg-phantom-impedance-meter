@@ -3,7 +3,7 @@
  * Determines the exact transform between raw GT911 coordinates and screen
  * pixels. Draws a crosshair at five known positions; tap each and the raw
  * reading is recorded. After the fifth tap the screen lists all five pairs as
- * "target -> raw". Select your board in board_config.h.
+ * "target -> raw". Board settings are listed in board_config.h.
  *
  * Five points, not one. A single corner tap CANNOT distinguish a plain
  * 180-degree inversion from an inverted-and-scaled mapping, because near the
@@ -14,14 +14,14 @@
  * sloppy tap produces a sloppy transform.
  *
  * Using the result: fit raw = a + b*screen for each axis, then put the inverse
- * into mapTouch() in board_config.h. For the CYD that came out as
+ * into mapTouch() in board_config.h. On the CrowPanel 7.0 (15 Oct 2026) that
+ * came out as
  *
- *     x = (785.1 - rawx) * 1.7143
- *     y = (471.7 - rawy) * 1.8223
+ *     x = 781.56 - 0.95296 * rawx
+ *     y = 470.96 - 0.97204 * rawy
  *
- * because its controller carries the 480x272 config of the sibling panel that
- * shares the PCB. The Elecrow's controller is configured for 800x480, so the
- * identity may well be correct there - but verify rather than assume.
+ * i.e. inverted on both axes at nearly full scale. Re-run this only if taps
+ * land on the wrong hexagon, or for a different panel.
  *
  * Raw arithmetic is used instead of the library's setRotation() because a
  * subtract-and-scale handles inversion AND scaling, which a rotation cannot.

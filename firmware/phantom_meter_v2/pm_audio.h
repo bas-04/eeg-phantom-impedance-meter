@@ -1,9 +1,9 @@
 /* pm_audio.h - WAV sound effects through the Elecrow CrowPanel 7.0's speaker port
  *
- * Added 22 Nov 2026. Elecrow only (PM_BOARD 2): the CrowPanel has an NS4168
- * class-D amplifier on its I2S bus driving the 2-pin PH2.0 SPK socket, and a
- * microSD (TF) slot on SPI. On the CYD (PM_BOARD 1) this whole file compiles to
- * nothing and the piezo on the carrier board keeps doing every sound.
+ * Added 22 Nov 2026. The CrowPanel has an NS4168 class-D amplifier on its I2S
+ * bus driving the 2-pin PH2.0 SPK socket, and a microSD (TF) slot on SPI. With
+ * no card, no speaker, or a missing file, the piezo on the carrier board does
+ * that sound instead.
  *
  *   I2S:   BCLK GPIO42   LRCLK GPIO18   DATA GPIO17     (NS4168, no MCLK needed)
  *   SD:    CS GPIO10     MOSI GPIO11    SCK GPIO12      MISO GPIO13
@@ -209,7 +209,6 @@ inline int mixRender(Voice *vs, int nv, int16_t *out, int frames) {
 
 // ==================================================================== ESP32 part
 #ifndef PM_AUDIO_HOST_TEST
-#if PM_BOARD == 2
 #define PM_HAS_SPEAKER 1
 #include <SPI.h>
 #include <SD.h>
@@ -373,19 +372,4 @@ bool audioAnyProblem() {
   return false;
 }
 
-#else
-// CYD (PM_BOARD 1): no speaker path. These stubs let the sketch call the same
-// functions on both boards; every sound then falls back to the piezo.
-#define PM_HAS_SPEAKER 0
-enum SoundId : uint8_t { SND_OPENING = 0, SND_CLICK, SND_MODE, SND_BRIDGE, SND_COUNT };
-inline bool audioBegin() { return false; }
-inline void audioLoad(SoundId, uint32_t) {}
-inline bool audioHas(SoundId) { return false; }
-inline void audioPlay(SoundId, uint16_t, uint16_t) {}
-inline void audioLoop(SoundId, bool, uint16_t, uint16_t) {}
-inline void audioStopAll() {}
-inline bool audioFxBusy(SoundId) { return false; }
-inline void audioStatusLine(char *out, size_t n) { if (n) out[0] = 0; }
-inline bool audioAnyProblem() { return false; }
-#endif  // PM_BOARD == 2
 #endif  // PM_AUDIO_HOST_TEST

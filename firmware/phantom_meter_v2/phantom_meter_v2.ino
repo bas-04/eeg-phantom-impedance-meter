@@ -1,47 +1,45 @@
 /*
  * EEG Phantom Impedance Meter — Rev B firmware (Arduino-ESP32, ESP32-S3)
  *
- * Runs on EITHER display. Pick one in board_config.h, which must sit in this
- * folder beside this file:
- *
- *     #define PM_BOARD 1     Sunton ESP32-8048S043C, 4.3 inch
- *     #define PM_BOARD 2     Elecrow CrowPanel ESP32 HMI, 7.0 inch
- *
- * That one line carries the RGB pin map and timing, the panel's touch address,
- * and the measured touch transform for that panel. board_config.h also turns
- * the two board settings that cost hours - PSRAM disabled, USB CDC On Boot
- * enabled - into compile-time errors, so if this builds, those two are right.
+ * Display: Elecrow CrowPanel ESP32 HMI 7.0 inch (ESP32-S3, 800x480 RGB, GT911
+ * touch). board_config.h, which must sit in this folder beside this file,
+ * carries the RGB pin map and timing, the touch address, and the measured
+ * touch transform. It also turns the two board settings that cost hours -
+ * PSRAM disabled, USB CDC On Boot enabled - into compile-time errors, so if
+ * this builds, those two are right. (A Sunton CYD 4.3 inch build existed
+ * during bring-up; it is preserved at the git tag dual-display-snapshot.)
  *
  * Board settings in Arduino IDE:
  *   Board: "ESP32S3 Dev Module"       USB CDC On Boot: Disabled
- *   PSRAM: "OPI PSRAM"
- *   CYD (16MB flash):    Flash Size 16MB, Partition "16M Flash (3MB APP/9.9MB FATFS)"
- *   Elecrow (4MB flash): Flash Size 4MB,  Partition "Huge APP (3MB No OTA/1MB SPIFFS)"
+ *   PSRAM: "OPI PSRAM"                Flash Size: 4MB
+ *   Partition: "Huge APP (3MB No OTA/1MB SPIFFS)"
  *
  * Libraries (Library Manager):  Adafruit ADS1X15, Adafruit MCP4725, Adafruit MCP23017 (MCP23X17),
  *                               GFX Library for Arduino (moononournation), TAMC_GT911
  *
- * Wiring - FOUR wires from J3 on the carrier board to the display:
- *   J3.1 5V   -> 5V          J3.2 GND -> GND
- *   J3.3 SDA  -> GPIO19      J3.4 SCL -> GPIO20
- *   J3.5 DRDY   NOT CONNECTED - see "sample pacing" in measureRaw() below.
+ * Wiring - the CrowPanel has no 5V pin, so the carrier gets its own 5V feed
+ * from the second port of the same USB charger that powers the display:
+ *   J3.1 5V   <- charger pigtail +5V      J3.2 GND <- charger pigtail GND
+ *   J3.3 SDA  <- CrowPanel I2C GPIO19     J3.4 SCL <- CrowPanel I2C GPIO20
+ *   J5.2 GND  <- CrowPanel I2C GND        (short return path for the bus)
+ *   J3.5        NOT CONNECTED - DRDY was dropped; see measureRaw() below.
  *
- * On the Elecrow, GPIO19/20 appear on the connector marked I2C, and its 3V3 pin
- * must be left disconnected: J3 pin 1 is a 5V input with no blocking diode, so
- * tying the display's 3V3 to it back-feeds 5V onto the ESP32-S3's rail.
+ * The CrowPanel I2C connector's 3V3 wire must be CUT AND INSULATED: J3 pin 1
+ * is a 5V input with no blocking diode, so tying the display's 3V3 to it
+ * back-feeds 5V onto the ESP32-S3's rail and destroys it.
  *
  * Footswitch (J5, optional): a short press moves the focus to the next site
  * still above 5 kOhm; holding it for a second toggles Mode A/B. Nothing is
  * harmed if no pedal is fitted - the pull-up simply reads it as released.
  *
- * Speaker (Elecrow only, added 22 Nov 2026): an 8 ohm speaker on the CrowPanel's
+ * Speaker (optional, added 22 Nov 2026): an 8 ohm speaker on the CrowPanel's
  * SPK socket plays WAV files from the TF card's top folder - opening.wav at
  * power-up, click.wav when a site is tapped, modechange.wav on Mode A/B, and
  * saltbridge.wav looped while a bridge is present until MUTE. See pm_audio.h
  * and the SOUND_ settings below. Missing files fall back to the piezo. The SD
  * and SPI libraries come with the ESP32 core: nothing extra to install.
  *
- * I2C map: GT911 touch 0x5D | MCP4725 DAC 0x62 (Adafruit) | ADS1115 #1 0x48 (V) | ADS1115 #2 0x49 (I)
+ * I2C map: GT911 touch 0x5D | MCP4725 DAC 0x60-0x63 (searched at start-up) | ADS1115 #1 0x48 (V) | ADS1115 #2 0x49 (I)
  *          MCP23017 #1 0x20 (mux select) | MCP23017 #2 0x21 (switches, LEDs, buzzer)
  *          PCA9557 0x18 is the Elecrow's own panel-reset expander. Expected, not a fault.
  */
@@ -52,9 +50,9 @@
 #include <Adafruit_MCP23X17.h>
 #include <Arduino_GFX_Library.h>
 #include <TAMC_GT911.h>
-#include "board_config.h"   // PM_BOARD, pin map, panel timing, touch transform
+#include "board_config.h"   // pin map, panel timing, touch transform
 #include "pm_fonts.h"       // anti-aliased Inter glyphs for the head-map screen
-#include "pm_audio.h"       // WAV sounds on the Elecrow speaker port (nothing on the CYD)
+#include "pm_audio.h"       // WAV sounds on the CrowPanel speaker port (piezo fallback)
 
 // ------------------------------------------------------------------ analog constants (Rev B)
 const float G_SENSE = 1.0f;       // U10A at gain 1: R8 bridged with a wire link (5 Nov 2026)
@@ -1728,10 +1726,8 @@ void touchService() {
   touch.read();
   bool hdrDown = false, muteDown = false, calDown = false, siteDown = false;
   if (touch.isTouched) {
-    // Both panels inverted on both axes, but at different scales - the CYD's
-    // controller carries the 480x272 config of the sibling panel sharing its
-    // PCB, the Elecrow's is genuinely 800x480. Both fits are measured, five
-    // points each, and live in mapTouch() in board_config.h.
+    // The panel is inverted on both axes. The five-point fit lives in
+    // mapTouch() in board_config.h.
     int tx, ty;
     mapTouch(touch.points[0].x, touch.points[0].y, tx, ty);
     if (ty < 60) hdrDown = true;
