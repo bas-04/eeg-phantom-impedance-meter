@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1030 590" width="1030" height="590" role="img" aria-label="Three ways the same switch fabric routes the test current">
+<title>Three ways the same switch fabric routes the test current</title>
+<defs><marker id="ah-00a888" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#00a888"/></marker><marker id="ah-0aac23" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0aac23"/></marker><marker id="ah-191919" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#191919"/></marker><marker id="ah-257de0" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#257de0"/></marker><marker id="ah-666666" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#666666"/></marker><marker id="ah-dc3c3d" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#dc3c3d"/></marker><marker id="ah-f47230" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#f47230"/></marker></defs>
+<rect width="1030" height="590" rx="10" fill="#ffffff"/>
+<text x="24" y="34" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#191919" text-anchor="start">Three measurements from one switch fabric</text>
+<text x="24" y="56" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#666666" text-anchor="start">Each insert is isolated in plastic, so current can only cross from the phantom to the cap through gel. Where it is allowed back decides what is measured.</text>
+<rect x="10" y="76" width="330" height="504" rx="10" fill="#ffffff" stroke="#c2c2c2" stroke-width="1.5"/>
+<text x="326" y="94" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">MODE A</text>
+<rect x="350" y="76" width="330" height="504" rx="10" fill="#ffffff" stroke="#c2c2c2" stroke-width="1.5"/>
+<text x="666" y="94" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">MODE B</text>
+<rect x="690" y="76" width="330" height="504" rx="10" fill="#ffffff" stroke="#c2c2c2" stroke-width="1.5"/>
+<text x="1006" y="94" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">BRIDGE CHECK</text>
+<polygon points="118.0,160.0 109.0,175.6 91.0,175.6 82.0,160.0 91.0,144.4 109.0,144.4" fill="#3a3a3a" stroke="none" stroke-width="1"/>
+<text x="124" y="165" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="start">insert X</text>
+<ellipse cx="100" cy="200" rx="26" ry="12" fill="#d3f0e8" stroke="#7cc9b6" stroke-width="1.5"/>
+<circle cx="100" cy="238" r="14" fill="#c8c8c8" stroke="#555555" stroke-width="1.5"/>
+<text x="124" y="243" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">electrode X</text>
+<path d="M100 104 L100 140" fill="none" stroke="#f47230" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-f47230)"/>
+<text x="100" y="98" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#f47230" text-anchor="middle">drive (MUX-D)</text>
+<rect x="20" y="300" width="310" height="176" rx="8" fill="#f6f7f8" stroke="#c2c2c2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="32" y="318" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#666666" text-anchor="start">ON THE BOARD</text>
+<rect x="210" y="420" width="96" height="40" rx="6" fill="#ffffff" stroke="#00a888" stroke-width="2"/>
+<text x="258" y="445" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">TIA → I</text>
+<rect x="50" y="340" width="100" height="36" rx="6" fill="#ffffff" stroke="#00a888" stroke-width="2"/>
+<text x="100" y="363" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#191919" text-anchor="middle">MUX-R ch X</text>
+<path d="M100 252 L100 338" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<path d="M150 358 L180 358" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="180" cy="358" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<circle cx="210" cy="358" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<path d="M180 358 L210 358" fill="none" stroke="#00a888" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="195" y="348" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#00a888" text-anchor="middle">S5</text>
+<path d="M210 358 L258 358 L258 418" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<text x="32" y="506" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">Z = Z_X  (plus the return path,</text>
+<text x="32" y="522" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">removed by self-calibration and</text>
+<text x="32" y="538" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">the per-site zero)</text>
+<polygon points="438.0,160.0 429.0,175.6 411.0,175.6 402.0,160.0 411.0,144.4 429.0,144.4" fill="#3a3a3a" stroke="none" stroke-width="1"/>
+<text x="444" y="165" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="start">insert X</text>
+<ellipse cx="420" cy="200" rx="26" ry="12" fill="#d3f0e8" stroke="#7cc9b6" stroke-width="1.5"/>
+<circle cx="420" cy="238" r="14" fill="#c8c8c8" stroke="#555555" stroke-width="1.5"/>
+<text x="444" y="243" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">electrode X</text>
+<polygon points="578.0,160.0 569.0,175.6 551.0,175.6 542.0,160.0 551.0,144.4 569.0,144.4" fill="#3a3a3a" stroke="none" stroke-width="1"/>
+<text x="584" y="165" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="start">insert A1</text>
+<ellipse cx="560" cy="200" rx="26" ry="12" fill="#d3f0e8" stroke="#7cc9b6" stroke-width="1.5"/>
+<circle cx="560" cy="238" r="14" fill="#c8c8c8" stroke="#555555" stroke-width="1.5"/>
+<text x="584" y="243" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">electrode A1</text>
+<path d="M420 104 L420 140" fill="none" stroke="#f47230" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-f47230)"/>
+<text x="420" y="98" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#f47230" text-anchor="middle">drive (MUX-D)</text>
+<rect x="360" y="300" width="310" height="176" rx="8" fill="#f6f7f8" stroke="#c2c2c2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="372" y="318" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#666666" text-anchor="start">ON THE BOARD</text>
+<rect x="500" y="420" width="96" height="40" rx="6" fill="#ffffff" stroke="#00a888" stroke-width="2"/>
+<text x="548" y="445" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">TIA → I</text>
+<rect x="372" y="340" width="96" height="36" rx="6" fill="#ffffff" stroke="#00a888" stroke-width="2"/>
+<text x="420" y="363" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#191919" text-anchor="middle">MUX-R ch X</text>
+<path d="M420 252 L420 338" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<path d="M468 358 L490 358" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="490" cy="358" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<circle cx="516" cy="358" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<path d="M490 358 L516 358" fill="none" stroke="#00a888" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="503" y="348" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#00a888" text-anchor="middle">S1</text>
+<path d="M516 358 L560 358 L560 254" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<text x="568" y="292" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="normal" fill="#666666" text-anchor="start">J2 pin 11</text>
+<path d="M560 142 L560 118 L662 118 L662 440 L640 440" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="654" y="112" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="normal" fill="#666666" text-anchor="end">J1 pin 11</text>
+<circle cx="640" cy="440" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<circle cx="614" cy="440" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<path d="M640 440 L614 440" fill="none" stroke="#00a888" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="627" y="430" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#00a888" text-anchor="middle">S3</text>
+<path d="M614 440 L598 440" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<text x="372" y="506" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">via A1:  Z_X + Z_A1    (S1 + S3)</text>
+<text x="372" y="522" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">via A2:  Z_X + Z_A2    (S2 + S4)</text>
+<text x="372" y="538" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">ears:    Z_A1 + Z_A2</text>
+<text x="372" y="554" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">Z_X = ½ (Z_XA1 + Z_XA2 − Z_A1A2)</text>
+<polygon points="778.0,160.0 769.0,175.6 751.0,175.6 742.0,160.0 751.0,144.4 769.0,144.4" fill="#3a3a3a" stroke="none" stroke-width="1"/>
+<text x="784" y="165" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="start">insert X</text>
+<circle cx="760" cy="238" r="14" fill="#c8c8c8" stroke="#555555" stroke-width="1.5"/>
+<text x="784" y="243" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">electrode X</text>
+<polygon points="918.0,160.0 909.0,175.6 891.0,175.6 882.0,160.0 891.0,144.4 909.0,144.4" fill="#3a3a3a" stroke="none" stroke-width="1"/>
+<text x="924" y="165" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="start">insert Y</text>
+<circle cx="900" cy="238" r="14" fill="#c8c8c8" stroke="#555555" stroke-width="1.5"/>
+<text x="924" y="243" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">electrode Y</text>
+<path d="M734 200 C 734 184, 926 184, 926 200 C 926 216, 734 216, 734 200 z" fill="#d3f0e8" stroke="#dc3c3d" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="830.0" y="205" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#dc3c3d" text-anchor="middle">gel bridge</text>
+<path d="M760 104 L760 140" fill="none" stroke="#f47230" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-f47230)"/>
+<text x="760" y="98" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#f47230" text-anchor="middle">drive (MUX-D)</text>
+<rect x="700" y="300" width="310" height="176" rx="8" fill="#f6f7f8" stroke="#c2c2c2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="712" y="318" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#666666" text-anchor="start">ON THE BOARD</text>
+<rect x="720" y="420" width="96" height="40" rx="6" fill="#ffffff" stroke="#00a888" stroke-width="2"/>
+<text x="768" y="445" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">TIA → I</text>
+<rect x="852" y="340" width="96" height="36" rx="6" fill="#ffffff" stroke="#00a888" stroke-width="2"/>
+<text x="900" y="363" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#191919" text-anchor="middle">MUX-R ch Y</text>
+<path d="M900 252 L900 338" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<path d="M760 252 L760 300" fill="none" stroke="#666666" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="3 4"/>
+<text x="766" y="292" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="normal" fill="#666666" text-anchor="start">ch X not selected</text>
+<path d="M900 376 L900 400 L870 400" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="870" cy="400" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<circle cx="844" cy="400" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<path d="M870 400 L844 400" fill="none" stroke="#00a888" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="857" y="390" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#00a888" text-anchor="middle">S5</text>
+<path d="M844 400 L790 400 L790 418" fill="none" stroke="#00a888" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<text x="712" y="506" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">no bridge → no path → OPEN</text>
+<text x="712" y="522" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">bridge → reads the gel path:</text>
+<text x="712" y="538" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">trips below 50 k, clears above 80 k</text>
+<text x="712" y="554" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#191919" text-anchor="start">(the gap stops it chattering)</text>
+</svg>

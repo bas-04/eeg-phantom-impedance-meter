@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 720" width="1040" height="720" role="img" aria-label="Analog front end schematic, redrawn">
+<title>Analog front end schematic, redrawn</title>
+<defs><marker id="ah-00a888" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#00a888"/></marker><marker id="ah-0aac23" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0aac23"/></marker><marker id="ah-191919" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#191919"/></marker><marker id="ah-257de0" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#257de0"/></marker><marker id="ah-666666" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#666666"/></marker><marker id="ah-dc3c3d" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#dc3c3d"/></marker><marker id="ah-f47230" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#f47230"/></marker></defs>
+<rect width="1040" height="720" rx="10" fill="#ffffff"/>
+<text x="24" y="34" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#191919" text-anchor="start">Analog front end</text>
+<text x="24" y="56" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#666666" text-anchor="start">Redrawn for reading. Values are the as-built bench board (R8 linked, gain 1). U9 and U10 are MCP6004; pin numbers in brackets.</text>
+<text x="24" y="92" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="start">EXCITATION AND CURRENT PUMP</text>
+<rect x="20" y="124" width="96" height="44" rx="6" fill="#ffffff" stroke="#f47230" stroke-width="2"/>
+<text x="68" y="143" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">M1 VOUT</text>
+<text x="68" y="159" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">MCP4725</text>
+<text x="20" y="186" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">VREF ± 0.25 V,</text>
+<text x="20" y="200" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">flips every 16 ms</text>
+<path d="M116 146 L128 146" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M128.0 146 L138.0 146" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M138.0 146 L144.66666666666666 152 L151.33333333333334 140 L158.0 152 L164.66666666666666 140 L171.33333333333334 152 L178.0 146" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M178.0 146 L188.0 146" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="158" y="134" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">R7  10k</text>
+<path d="M188 146 L240 146" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="205" cy="146" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M205 146 L205 162" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M193 162 L217 162" fill="none" stroke="#191919" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M193 169 L217 169" fill="none" stroke="#191919" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M205 169 L205 182" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="188" y="166" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="end">C9</text>
+<text x="188" y="180" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="end">47n</text>
+<path d="M205 182 L205 190" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M191 190 L219 190" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M196 194 L214 194" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M201 198 L209 198" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="240,130.0 240,194.0 304,162" fill="#ffffff" stroke="#191919" stroke-width="1.8"/>
+<text x="248" y="151.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">+</text>
+<text x="248" y="183.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">−</text>
+<text x="264.32" y="166" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="middle">U9A</text>
+<text x="272" y="210" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">buffer [3,2→1]</text>
+<path d="M304 162 L318 162" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="318" cy="162" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M318 162 L318 196 L228 196 L228 178 L240 178" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M318 162 L340 162 L340 214 L364 214" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M364.0 214 L374.0 214" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M374.0 214 L380.6666666666667 220 L387.3333333333333 208 L394.0 220 L400.6666666666667 208 L407.3333333333333 220 L414.0 214" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M414.0 214 L424.0 214" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="394" y="202" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">R3  100k</text>
+<path d="M424 214 L470 214" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="450" cy="214" r="4.5" fill="#f47230" stroke="#f47230" stroke-width="0"/>
+<polygon points="470,196.0 470,268.0 542,232" fill="#ffffff" stroke="#191919" stroke-width="1.8"/>
+<text x="478" y="219.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">+</text>
+<text x="478" y="255.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">−</text>
+<text x="497.36" y="236" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="middle">U9B</text>
+<text x="506" y="336" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">Howland pump [5,6→7]</text>
+<path d="M542 232 L575 232" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="575" cy="232" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M575 232 L575 180 L546 180" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M486.0 180 L496.0 180" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M496.0 180 L502.6666666666667 186 L509.3333333333333 174 L516.0 186 L522.6666666666666 174 L529.3333333333334 186 L536.0 180" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M536.0 180 L546.0 180" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="516" y="168" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">R4  100k</text>
+<path d="M486 180 L450 180 L450 214" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="450" cy="180" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M470 250 L450 250 L424 250" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="450" cy="250" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M364.0 250 L374.0 250" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M374.0 250 L380.6666666666667 256 L387.3333333333333 244 L394.0 256 L400.6666666666667 244 L407.3333333333333 256 L414.0 250" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M414.0 250 L424.0 250" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="394" y="272" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">R1  100k</text>
+<path d="M364 250 L356 250" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="352" y="254" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">VREF</text>
+<path d="M450 250 L450 290 L486 290" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M486.0 290 L496.0 290" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M496.0 290 L502.6666666666667 296 L509.3333333333333 284 L516.0 296 L522.6666666666666 284 L529.3333333333334 296 L536.0 290" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M536.0 290 L546.0 290" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="516" y="312" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">R2  100k</text>
+<path d="M546 290 L575 290 L575 232" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="600" y="266" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#666666" text-anchor="start">R1 = R2 = R3 = R4  ⇒</text>
+<text x="600" y="282" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#f47230" text-anchor="start">I = (V_U9A − VREF) / R3 = ±2.5 µA,</text>
+<text x="600" y="298" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#666666" text-anchor="start">set by the DAC, not by the load</text>
+<path d="M450 180 L450 120 L600 120" fill="none" stroke="#f47230" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M600.0 120 L610.0 120" fill="none" stroke="#f47230" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M610.0 120 L616.6666666666666 126 L623.3333333333334 114 L630.0 126 L636.6666666666666 114 L643.3333333333334 126 L650.0 120" fill="none" stroke="#f47230" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M650.0 120 L660.0 120" fill="none" stroke="#f47230" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="630" y="108" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">R17  150k limit</text>
+<path d="M660 120 L690 120" fill="none" stroke="#f47230" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-f47230)"/>
+<rect x="692" y="100" width="104" height="40" rx="6" fill="#ffffff" stroke="#f47230" stroke-width="2"/>
+<text x="744" y="118" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">MUX-D</text>
+<text x="744" y="132" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">U1+U2</text>
+<path d="M796 120 L950 120 L950 148" fill="none" stroke="#f47230" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-f47230)"/>
+<circle cx="852" cy="120" r="5.5" fill="#257de0" stroke="#257de0" stroke-width="0"/>
+<text x="852" y="104" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">J1 pin n</text>
+<text x="852" y="90" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#257de0" text-anchor="middle">Kelvin junction</text>
+<rect x="900" y="150" width="104" height="84" rx="6" fill="#f6f7f8" stroke="#191919" stroke-width="1.8"/>
+<text x="952" y="176" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#191919" text-anchor="middle">Z_site</text>
+<text x="952" y="196" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">insert</text>
+<text x="952" y="209" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">+ gel</text>
+<text x="952" y="222" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">+ electrode</text>
+<text x="24" y="372" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#257de0" text-anchor="start">VOLTAGE SENSE  (no current flows here, so mux resistance drops out)</text>
+<path d="M852 120 L852 402 L822 402" fill="none" stroke="#257de0" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-257de0)"/>
+<rect x="730" y="382" width="92" height="40" rx="6" fill="#ffffff" stroke="#257de0" stroke-width="2"/>
+<text x="776" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">MUX-S</text>
+<text x="776" y="414" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">U3+U4</text>
+<path d="M730 402 L692 402" fill="none" stroke="#257de0" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="692,386.0 692,450.0 628,418" fill="#ffffff" stroke="#191919" stroke-width="1.8"/>
+<text x="676" y="407.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">+</text>
+<text x="676" y="439.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">−</text>
+<text x="666.4" y="422" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="middle">U10A</text>
+<path d="M692 434.0 L708 434 L708 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="708" cy="474" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M708 474 L690 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M630.0 474 L640.0 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M640.0 474 L646.6666666666666 480 L653.3333333333334 468 L660.0 480 L666.6666666666666 468 L673.3333333333334 480 L680.0 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M680.0 474 L690.0 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="660" y="466" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#191919" text-anchor="middle">R8 300k</text>
+<path d="M630 474 L614 474 L614 418" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="614" cy="418" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M708 474 L708 498 L614 498 L614 474" fill="none" stroke="#dc3c3d" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="661" y="513" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#dc3c3d" text-anchor="middle">wire link across R8</text>
+<path d="M708 474 L736 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M736.0 474 L746.0 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M746.0 474 L752.6666666666666 480 L759.3333333333334 468 L766.0 480 L772.6666666666666 468 L779.3333333333334 480 L786.0 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M786.0 474 L796.0 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="766" y="466" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#191919" text-anchor="middle">R9 100k</text>
+<path d="M796 474 L806 474" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="810" y="478" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="start">VREF</text>
+<text x="660" y="536" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">gain = 1 + R8/R9: 4 stock, 1 linked</text>
+<path d="M628 418 L614 418 L566 418" fill="none" stroke="#257de0" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-257de0)"/>
+<rect x="400" y="396" width="164" height="44" rx="6" fill="#ffffff" stroke="#257de0" stroke-width="2"/>
+<text x="482" y="414" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">M2 ADS1115 0x48</text>
+<text x="482" y="430" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="normal" fill="#666666" text-anchor="middle">AIN0 sense · AIN1 VREF</text>
+<text x="24" y="648" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#00a888" text-anchor="start">RETURN CURRENT  (measured, not assumed)</text>
+<path d="M952 234 L952 620 L824 620" fill="none" stroke="#00a888" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<text x="960" y="606" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="start">J2 pin n</text>
+<rect x="730" y="600" width="92" height="40" rx="6" fill="#ffffff" stroke="#00a888" stroke-width="2"/>
+<text x="776" y="618" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">MUX-R</text>
+<text x="776" y="632" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">U5+U6</text>
+<path d="M730 620 L706 620" fill="none" stroke="#00a888" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="706" cy="620" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<circle cx="680" cy="620" r="3" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<path d="M706 620 L680 620" fill="none" stroke="#00a888" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="693" y="606" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#00a888" text-anchor="middle">S5</text>
+<path d="M680 620 L624 620" fill="none" stroke="#00a888" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="638" cy="620" r="4.5" fill="#00a888" stroke="#00a888" stroke-width="0"/>
+<polygon points="624,604.0 624,668.0 560,636" fill="#ffffff" stroke="#191919" stroke-width="1.8"/>
+<text x="608" y="625.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">−</text>
+<text x="608" y="657.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">+</text>
+<text x="598.4" y="640" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="middle">U9C</text>
+<path d="M638 620 L638 580 L606 580" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M546.0 580 L556.0 580" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M556.0 580 L562.6666666666666 586 L569.3333333333334 574 L576.0 586 L582.6666666666666 574 L589.3333333333334 586 L596.0 580" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M596.0 580 L606.0 580" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="576" y="572" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#191919" text-anchor="middle">R18 200k</text>
+<path d="M546 580 L546 636" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="546" cy="636" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M624 652.0 L640 652 L650 652" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="654" y="656" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="start">VREF</text>
+<text x="600" y="690" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">virtual ground held at VREF  [10,9→8]</text>
+<path d="M560 636 L546 636 L520 636" fill="none" stroke="#00a888" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-00a888)"/>
+<rect x="352" y="614" width="166" height="44" rx="6" fill="#ffffff" stroke="#00a888" stroke-width="2"/>
+<text x="435" y="632" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">M3 ADS1115 0x49</text>
+<text x="435" y="648" font-family="Helvetica, Arial, sans-serif" font-size="10.5" font-weight="normal" fill="#666666" text-anchor="middle">AIN0 TIA out · AIN1 VREF</text>
+<rect x="20" y="404" width="300" height="210" rx="8" fill="#f6f7f8" stroke="#c2c2c2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="34" y="424" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="start">VREF GENERATOR  U9D [12,13→14]</text>
+<text x="48" y="446" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="start">+3.3 V</text>
+<path d="M60 452 L60 462" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 462.0 L60 472.0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 472.0 L66 478.0 L54 484.0 L66 490.0 L54 496.0 L66 502.0 L60 508.0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 508.0 L60 518.0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="72" y="488" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="start">R5</text>
+<text x="72" y="503" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start">100k</text>
+<circle cx="60" cy="518" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M60 518.0 L60 528.0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 528.0 L66 534.0 L54 540.0 L66 546.0 L54 552.0 L66 558.0 L60 564.0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 564.0 L60 574.0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="72" y="544" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="start">R6</text>
+<text x="72" y="559" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start">100k</text>
+<path d="M60 574 L60 582" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M46 582 L74 582" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M51 586 L69 586" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M56 590 L64 590" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 518 L130 518" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="130" cy="518" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M130 518 L130 534" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M118 534 L142 534" fill="none" stroke="#191919" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M118 541 L142 541" fill="none" stroke="#191919" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M130 541 L130 554" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="146" y="536" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="start">C10</text>
+<text x="146" y="550" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start">10µ</text>
+<path d="M130 554 L130 562" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M116 562 L144 562" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M121 566 L139 566" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M126 570 L134 570" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M130 518 L196 518" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="196,504.0 196,564.0 256,534" fill="#ffffff" stroke="#191919" stroke-width="1.8"/>
+<text x="204" y="524.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">+</text>
+<text x="204" y="554.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#191919" text-anchor="start">−</text>
+<text x="218.8" y="538" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#191919" text-anchor="middle">U9D</text>
+<path d="M256 534 L270 534" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="270" cy="534" r="3.5" fill="#191919" stroke="#191919" stroke-width="0"/>
+<path d="M270 534 L270 570 L184 570 L184 549 L196 549" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M270 534 L296 534" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#ah-191919)"/>
+<text x="232" y="598" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#191919" text-anchor="middle">VREF = 1.65 V</text>
+<text x="24" y="708" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#666666" text-anchor="start">Z = (V_sense / gain) ÷ (V_TIA / 200 k) = 200 000 × V_sense / V_TIA at gain 1. Self-calibration then maps raw Z onto R20 and R22.</text>
+</svg>

@@ -1,0 +1,49 @@
+Designator,Qty,Value,Part number,Source,Status on the bench build,Notes
+"C1,C2,C3,C4,C5,C6,C7,C8,C11,C12,C13,C14,C15,C18,C19",15,100 nF,K104K15X7RF5TH5,Digi-Key or any 5 mm-pitch ceramic,Fitted,Decoupling
+C9,1,47 nF,K473K15X7RF5TH5,Digi-Key or any 5 mm-pitch ceramic,Fitted,DAC low-pass with R7
+"C10,C17",2,10 uF,ECA-1HM100,Digi-Key,Fitted,"Radial electrolytic, 5 mm dia, 2.0 mm pitch. C10 filters VREF."
+C16,1,47 uF,ECA-1CM470,Digi-Key / Mouser,Fitted,"16 V, 5 mm dia, 2.0 mm pitch. The 50 V part is 6.3 mm and does not fit."
+"R1,R2,R3,R4",4,100 k,MFR-25FRF52-100K,Digi-Key or any 1/4 W 1 % metal film,Fitted,Howland pump network
+"R5,R6",2,100 k,MFR-25FRF52-100K,Digi-Key or any 1/4 W 1 % metal film,Fitted,VREF divider
+R7,1,10 k,MFR-25FRF52-10K,Digi-Key or any 1/4 W 1 % metal film,Fitted,DAC low-pass with C9
+R8,1,300 k,MFR-25FRF52-300K,Digi-Key or any 1/4 W 1 % metal film,Bridged with a wire link,"Sense gain 1 on the bench board (G_SENSE = 1.0f). Fit the resistor and leave it unlinked only if you also set G_SENSE = 4.0f."
+R9,1,100 k,MFR-25FRF52-100K,Digi-Key or any 1/4 W 1 % metal film,Fitted (optional once R8 is linked),Has no effect on the gain while R8 is linked
+R10,1,10 k,MFR-25FRF52-10K,Digi-Key or any 1/4 W 1 % metal film,Fitted,
+"R11,R12,R13",3,1 k,MFR-25FRF52-1K,Digi-Key or any 1/4 W 1 % metal film,Fitted,LED resistors
+R14,1,10 R,MFR-25FRF52-10R,Digi-Key or any 1/4 W 1 % metal film,Fitted,5 V input filter
+"R15,R16",2,4.7 k,MFR-25FRF52-4K7,Digi-Key,Not fitted,"I2C pull-ups. The modules' own pull-ups carry the bus; fit these only if addresses drop out."
+R17,1,150 k,MFR-25FRF52-150K,Digi-Key or any 1/4 W 1 % metal film,Fitted,Fault-current limit in series with the load
+R18,1,200 k,MFR-25FRF52-200K,Digi-Key or any 1/4 W 1 % metal film,Fitted,Transimpedance resistor
+R20,1,1.00 k 0.1 %,MFP-25BRD52-1K,Digi-Key / Mouser (Yageo),Fitted,"Calibration anchor, 25 ppm/C"
+R21,1,4.70 k 0.1 %,MFP-25BRD52-4K7,Digi-Key / Mouser (Yageo),Fitted,"Mid-scale check, expect ~4700. (4.99 k is not stocked in this series; old notes saying 4990 are stale.)"
+R22,1,100 k 0.1 %,MFP-25BRD52-100K,Digi-Key / Mouser (Yageo),Fitted,Calibration anchor
+"U1,U2,U3,U4,U5,U6",6,CD74HC4067E (DIP-24 wide),CD74HC4067E,Amazon / AliExpress 10-pack,Fitted (socketed),"The DIP version is obsolete at TI; parts sold today are old stock or of unknown origin. See hardware/README.md. Buy spares."
+"U7,U8",2,SN74HC4066N,SN74HC4066N,Digi-Key 296-8347-5-ND,Fitted (socketed),"U7 = S1-S4 (Mode B), U8 = S5 (Mode A), S6 (probe, unused)"
+"U9,U10",2,MCP6004-I/P,MCP6004-I/P,Digi-Key MCP6004-I/P-ND,Fitted (socketed),Quad op-amps
+"U11,U12",2,MCP23017-E/SP,MCP23017-E/SP,Digi-Key MCP23017-E/SP-ND,Fitted (socketed),"28-pin NARROW (0.300 in)"
+U13,1,MCP1700-3302E/TO,MCP1700-3302E/TO,Digi-Key MCP1700-3302E/TO-ND,Fitted,"3.3 V LDO, TO-92"
+-,6,DIP-24 machined socket 0.600 in WIDE,ICM-624-1-GT-HT,Digi-Key / Mouser,Fitted,"Must be the wide version, or Mill-Max 110-43-624-41-001000"
+-,4,DIP-14 machined socket,ICM-314-1-GT-HT,Digi-Key / Mouser,Fitted,
+-,2,DIP-28 machined socket 0.300 in NARROW,ICM-328-1-GT-HT,Digi-Key / Mouser,Fitted,Not the wide EPROM type
+M1,1,MCP4725 DAC module,generic or Adafruit,Amazon / Adafruit,Hand-wired with 5 jumper wires,"Do NOT plug into the M1 socket: the footprint swaps A0 and VOUT. Wire by label (docs/img/dac-wiring.svg). Generic modules answer at 0x60, Adafruit at 0x62."
+-,5,Female-to-male jumper wires,,any,Fitted,For M1
+"M2,M3",2,ADS1115 module (single-row 10-pin),ADS1115,Amazon / Adafruit,Plugged into sockets,"Pin order VDD GND SCL SDA ADDR ALRT A0 A1 A2 A3. M3 pin 6 (ALRT) may be clipped off; see hardware/README.md."
+-,1,40-pin female header strip,,any,Fitted,"Cut 10 + 10 + 6 for the M2, M3 and M1 sockets (M1 takes the jumper wires)"
+-,1,40-pin male header strip,,any,Fitted,"Cut 6 + 6 + 2 + 2 for J3, J6, J4, J5"
+"J1,J2",2,DB25 female VERTICAL (straight) PCB mount,,Amazon / Digi-Key / Mouser,Fitted,"Rev B footprint is mirrored for right-angle parts; vertical ones drop into the same holes. Check 'vertical/straight' in the listing."
+"J3,J4,J5,J6",4,2.54 mm pin headers,,any,Fitted,"J3 power + I2C, J4 probe (unused), J5 footswitch + GND, J6 spare lines"
+"LED1",1,3 mm yellow,WP3A8YD,any,Fitted,Lit in Mode B
+"LED2,LED3",2,3 mm green,WP3A8GD,any,Fitted,"LED2 refs valid, LED3 power"
+LS1,1,Piezo element 12 mm,PS1240P02BT,Digi-Key 445-2525-1-ND,Fitted,"Not polarised; resonance ~4 kHz"
+PCB,1,"2-layer, 160 x 116 mm, 1.6 mm, HASL",,JLCPCB (5 pcs minimum),Fitted,See hardware/README.md for ordering
+DISPLAY,1,Elecrow CrowPanel ESP32 HMI 7.0 in,DIS08070H,Elecrow / Amazon,In use,"ESP32-S3-WROOM-1-N4R8, 800x480, GT911 touch"
+-,1,Two-port 5 V USB charger (1 A or more),,any,In use,"Port 1 to the display, port 2 to J3 pins 1-2"
+-,1,USB-A to bare-wire pigtail,,any,In use,"Carrier 5 V feed; identify + with a meter"
+-,1,USB cable for the display,,any,In use,
+-,2,1.5 mm touch-proof (DIN 42802) panel receptacles,,any,Fitted,"Ear electrodes A1/A2, wired to J2 pins 11 and 24"
+-,1,DB25 male connector + ribbon or hook-up wire,,any,Fitted,Head harness from the inserts to J1 (Electro-Cap pinout)
+-,1,Straight-through DB25 male-to-male cable,,any,Tool,"For ZERO SITES; all 25 pins, pin N to pin N (not null-modem)"
+-,1,Momentary foot pedal (normally open),,any,Optional,"J5 pin 1 to pin 2"
+-,1,8 ohm 1-3 W speaker with PH2.0 2-pin plug,,any,Optional,CrowPanel SPK socket
+-,1,microSD card (FAT32),,any,Optional,"opening.wav, click.wav, modechange.wav, saltbridge.wav"
+DG1,0,DB25 female solder-cup loop-back dongle,L77SDB25S + hood,Digi-Key,Not used,"Only for caps whose ear electrodes are inside the DB25; this build uses ear jacks instead"
