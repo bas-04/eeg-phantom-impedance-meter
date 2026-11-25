@@ -1,0 +1,235 @@
+=======================================================================
+STEP 4 - I2C SCAN WITH THE CARRIER BOARD ATTACHED
+Elecrow CrowPanel ESP32 HMI 7.0 inch  +  phantom meter Rev B carrier
+16 October 2026
+=======================================================================
+
+GOAL
+
+Prove that the display and all five carrier-board I2C devices share one
+working bus. Nothing is measured yet and no multiplexers are needed. You are
+looking for seven addresses on the screen.
+
+
+WHICH CONNECTOR
+
+Use the connector labelled I2C. Not GPIO_D, not UART0.
+
+This is not a preference, it is the only choice. The carrier's bus is wired to
+GPIO19 and GPIO20, and on this board those two pins come out on exactly one
+connector:
+
+    I2C      1020_SCL, 1019_SDA, 3V3, GND     <-- GPIO20 and GPIO19. Use this.
+    GPIO_D   1038, NC, 3V3, GND               <-- GPIO38 only. Not the bus.
+    UART0    1044_RX0, 1043_TX0, 3V3, GND     <-- GPIO44/43. Not the bus.
+
+GPIO_D and UART0 stay empty for this step. They matter later, when the DRDY
+line gets a pin, and not before.
+
+Go by the silkscreen labels on the connector, not by which end you think is
+pin 1. The labels are printed next to the pins for exactly this reason, and
+the two signal wires are not interchangeable - swapping SDA and SCL gives a
+completely dead bus with no other symptom.
+
+The mating cable is whichever 4-pin pigtail came in the box with the board.
+If it has gone missing, measure the connector pitch before ordering, since
+Elecrow uses more than one size across their panels.
+
+
+THE WIRING - FOUR WIRES, AND ONE YOU MUST NOT CONNECT
+
+  FROM                          TO                       NET
+  ----------------------------------------------------------------------
+  I2C connector  1019_SDA       J3 pin 3                 SDA
+  I2C connector  1020_SCL       J3 pin 4                 SCL
+  I2C connector  GND            J5 pin 2  (see below)    GND
+  5V pigtail     red  / +5V     J3 pin 1                 +5V
+  5V pigtail     black / GND    J3 pin 2                 GND
+
+  I2C connector  3V3            NOTHING. Cut it back and insulate it.
+
+J3 pin 5 (DRDY) and J3 pin 6 (no connection on the board) stay empty.
+
+
+*** THE ONE WAY TO DESTROY THE DISPLAY ***
+
+Do not let the I2C connector's 3V3 wire touch J3 pin 1.
+
+J3 pin 1 is the carrier's +5V input. There is no blocking diode anywhere
+between it and the charger. If the display's 3V3 rail is tied to that pin
+while the 5V pigtail is also plugged in, the 5V supply back-feeds down the
+wire and drags the display's entire 3.3V rail - which powers the ESP32-S3
+itself - up toward 5V. The ESP32-S3 is a 3.6V-maximum part. That is an
+instant, permanent kill, and it is a plausible mistake because the two pins
+sit one connector apart and both say "power".
+
+So do not merely leave that wire unplugged. Cut it short and put heatshrink or
+tape over the end, so a loose strand cannot find pin 1 while you are moving
+the boards around. One snip removes the whole failure mode.
+
+
+WHY NOT JUST POWER THE CARRIER FROM THAT 3V3 PIN
+
+It is tempting - one connector, no second cable - and it does not work well:
+
+  The carrier's 5V input goes through R14, a 10 ohm filter resistor, into U13,
+  an MCP1700 3.3V LDO. Every active part on the board runs from U13's output.
+  Feeding 3.3V into that chain instead of 5V gives roughly 3.3 - 0.3 (R14 and
+  the LDO's own dropout) = about 2.9V on the analog rail. The MCP4725 DAC's
+  minimum supply is 2.7V. You would be running the DAC 200 mV above its floor,
+  and if the display's 3V3 rail sags under panel and backlight load, less than
+  that. Nothing fails cleanly at that margin - you get a DAC that works on the
+  bench and misbehaves during a class.
+
+  The display's own 3.3V regulator would also have to carry the carrier's
+  current on top of the panel and backlight.
+
+If you ever do need single-cable operation, the real fix is to bridge across
+U13 and feed the carrier's 3.3V rail directly, which is listed as option 3 in
+the README's power section. That is a deliberate modification, not a wiring
+shortcut, and it is not what step 4 is for.
+
+
+WHY THE GROUND WIRE GOES TO J5 PIN 2
+
+J3 pin 2 is the ground you are already using for the 5V pigtail, and one
+header pin takes one jumper socket. Rather than twisting two wires into one
+crimp, land the I2C cable's ground on J5 pin 2, which is also GND. J5 is the
+2-pin footswitch header: pin 1 is FOOTSW, pin 2 is GND. J4 pin 2 is another
+GND if J5 is more convenient to reach. Either gives the I2C signals a short,
+direct return path right next to where they enter the board.
+
+Both charger ports share ground internally, so there is already a DC ground
+path without this wire. The wire is about the return loop, not continuity: the
+path through two USB cables and the charger's internals is long, and a long
+return is how a bus that scans fine at 100 kHz turns flaky at 400 kHz. Add it
+now rather than chasing it later.
+
+
+POWER
+
+One two-port 5V charger. USB-C from one port to the display as usual, and a
+USB-A-to-bare-wire pigtail from the other to J3 pins 1 and 2.
+
+Both rails then come up together, which is what you want: a carrier sitting
+unpowered with a live bus on its pins means current flowing into chip inputs
+through their protection diodes.
+
+Do NOT power the display from your computer's USB port. GPIO19/20 are the
+ESP32-S3's native USB D-/D+ pins. A USB host actively drives them, and the
+bus dies. Upload the sketch from the computer, then unplug and move the
+display to the charger before looking at the result. This is the same trap as
+on the CYD.
+
+Do not use the BAT connector as a 5V source. It is a single-cell LiPo input
+wired to the onboard charger, it sits anywhere from 3.0V to 4.2V depending on
+state of charge, and back-feeding it means fighting a charger IC.
+
+CHECK THE PIGTAIL BEFORE YOU TRUST IT. Plug it into the charger with the bare
+ends apart and nothing else connected, and measure. You are looking for about
+5V, and you want to know which lead is positive from the meter, not from the
+wire colour - cheap pigtails are not reliably colour-coded. The green and
+white data wires, if present, get cut back and insulated like the 3V3 wire.
+
+
+PRE-FLIGHT, IN THIS ORDER
+
+  1. Pigtail only, into the charger, nothing attached. Measure about 5V and
+     confirm which lead is positive.
+
+  2. Pigtail to J3 pins 1 and 2, display not connected at all. Power up.
+     Measure U13's output: you want 3.3V, give or take a few hundredths.
+     Nothing should be warm. If the rail is low or U13 heats up, stop - you
+     have a short on the 3.3V rail, and finding it now is far easier than
+     finding it after the display is in the loop.
+
+  3. Power down. Connect the three I2C-connector wires. Check once more that
+     the 3V3 wire is cut and insulated.
+
+  4. Power up both ports and run the sketch.
+
+
+ARDUINO IDE SETTINGS
+
+Compile pm_i2c_scan, with board_config.h in that same folder set to
+
+    #define PM_BOARD 2
+
+which is how the bundle already ships. Board settings:
+
+    Board            ESP32S3 Dev Module
+    USB CDC On Boot  Disabled            <- compile-time checked
+    Flash Size       4MB (32Mb)
+    Partition        Huge APP (3MB No OTA/1MB SPIFFS)
+    PSRAM            OPI PSRAM           <- compile-time checked
+
+board_config.h turns the two that cost hours into hard compile errors, so if
+it builds, those two are right. PSRAM in particular fails silently: without it
+the 768 kB framebuffer cannot be allocated and the screen simply stays black
+with no error anywhere.
+
+
+WHAT SUCCESS LOOKS LIKE
+
+Seven addresses, listed down the left of the screen, refreshing every three
+seconds:
+
+    0x18    PCA9557 panel-reset expander     display
+    0x20    MCP23017  U11                    carrier
+    0x21    MCP23017  U12                    carrier
+    0x48    ADS1115   M2                     carrier
+    0x49    ADS1115   M3                     carrier
+    0x5D    GT911 touch controller           display
+    0x62    MCP4725   M1                     carrier
+
+0x18 and 0x5D are the display's own and were already there in step 2. The five
+new ones are the carrier. Order on screen is numerical, so it reads top to
+bottom exactly as above.
+
+
+IF IT DOES NOT
+
+  Only 0x18 and 0x5D
+      The bus is not reaching the carrier. Either the carrier has no power, or
+      SDA and SCL are swapped, or a wire is in the wrong J3 pin. Check the 3.3V
+      rail at U13 first, since that is one measurement and rules out half of
+      it. Then confirm 1019_SDA goes to J3 pin 3 and 1020_SCL to J3 pin 4 -
+      reversed is the single most common cause and looks identical to no
+      connection at all.
+
+  Nothing at all, screen says NONE
+      Both ends are down, which usually means the bus is being held low or a
+      ground is missing. Check that the I2C ground wire is actually seated on
+      J5 pin 2. Also make sure the display is on the charger and not on your
+      computer.
+
+  Carrier devices appear, 0x5D disappears
+      A USB host is loading GPIO19/20, or the display's 3V3 and the carrier's
+      5V have met somewhere. Power down immediately and check that 3V3 wire.
+
+  0x62 missing, everything else present
+      The MCP4725 adapter board. Measure 3.3V on its VIN pad - if that is
+      absent, it is a solder joint on the adapter, not a bus problem.
+
+  0x20 or 0x21 missing
+      That MCP23017 is seated backwards or not fully home in its socket.
+
+  0x48 or 0x49 missing
+      That ADS1115 module is backwards in its header, or its ADDR strap is
+      not set for the address you expect.
+
+  Addresses appear and disappear between refreshes
+      Marginal pull-up or too much wire. R15 and R16 on the carrier are 4.7k
+      I2C pull-ups deliberately left unpopulated, because the three breakout
+      modules carry their own and the five devices answered on the CYD without
+      them. Flaky is exactly the symptom they exist for - fit them. Shorten
+      the I2C wires first, though; under 15 cm if you can.
+
+
+AFTER THIS WORKS
+
+Step 4 is the last step that needs no multiplexers. Steps 5 and 6 - the
+self-calibration against the on-board standards, then a real impedance
+reading - wait on U1 through U6. The DRDY pin decision and the port of
+phantom_meter_v2 to board_config.h can both be settled in the meantime; see
+STILL OPEN in the README.

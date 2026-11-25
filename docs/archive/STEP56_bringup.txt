@@ -1,0 +1,189 @@
+=======================================================================
+STEPS 5 AND 6 - THE MULTIPLEXERS GO IN
+EEG head phantom impedance meter, Rev B          23 October 2026
+=======================================================================
+
+This is the first time the measurement path is complete end to end. Up to now
+you have proved the display, the touch panel, the bus and all seven I2C
+devices. Nothing has actually measured anything yet.
+
+READ THIS FIRST - A STALE NUMBER IN THE OLD GUIDE
+
+  The bring-up step used to say the mid-scale calibration check should land
+  within 50 ohms of 4990. That is WRONG for the board you built.
+
+  R21 was changed to a 4.70 kohm part when 4.99k turned out not to be stocked
+  in the Yageo MFP-25BRD52 series. The BOM has said so since September and the
+  firmware expects 4700. A correct board reads about 4700, which the old text
+  would have called a 290 ohm failure - sending you hunting for a fault that
+  does not exist, at the worst possible moment. The guide is now corrected.
+
+  EXPECT ABOUT 4700.
+
+
+BEFORE YOU OPEN THE BAG
+
+  1. Power down completely. Both charger ports, not just one.
+
+  2. Ground yourself. These are CMOS analog switches. Touch something earthed
+     before you touch the pins. This is the one irreversible step in the whole
+     build - a damaged mux is a desolder job if the socket is not machined-pin,
+     and a confusing intermittent fault if the damage is partial.
+
+  3. Six CD74HC4067E, all identical, 24-pin DIP. Nothing distinguishes them, so
+     there is nothing to mix up between U1 and U6 - but there is everything to
+     mix up about WHICH WAY ROUND.
+
+
+INSERTING THEM
+
+  4. Notch to notch, every time. The silkscreen pin-1 mark and the chip notch
+     point the same way. All six face the same direction on this board; if one
+     of yours wants to go in the other way, stop and re-read the silkscreen
+     rather than forcing it.
+
+  5. Straighten the leads first. DIP legs splay outward from the factory and
+     will not drop into a machined-pin socket. Press each row gently against a
+     flat surface until the legs are square, then start all 24 pins together
+     and press straight down with even thumb pressure.
+
+  6. After each chip, look along the row at eye level. A folded-under pin is
+     the classic failure here and it is nearly invisible from above. You are
+     looking for 24 legs in 24 holes, none bent outward, none tucked under the
+     body.
+
+  7. U7 and U8 (SN74HC4066N, 14-pin) go in at the same step if they are not
+     already fitted.
+
+
+SET ONE THING IN THE FIRMWARE
+
+  8. In phantom_meter_v2.ino, set
+
+         #define SALT_BRIDGE 0
+
+     Turn it back on after step 6. Salt-bridge scanning adds 31 measurements
+     per cycle, which is pure latency to sit through while you are chasing
+     something else. It also means a wiring fault shows up as bridge alarms on
+     top of whatever you were actually looking at.
+
+
+STEP 5 - SELF-CALIBRATION
+
+  9. Power up on the charger, not the computer.
+
+  10. The screen now shows a SELF-CALIBRATION report before the head map. This
+      is new: the numbers used to go only to the serial monitor, and a failed
+      calibration drew nothing at all - the map came up with 22 OPEN sites,
+      which looks exactly like a board with no multiplexers in it.
+
+      Reading it:
+
+        1.00 k standard   fit anchor     ~1000      always right, by definition
+        4.70 k check      expect ~4700   THE NUMBER THAT MATTERS
+        100 k standard    fit anchor   ~100000      always right, by definition
+        short channel     return path    tens of ohms
+        open channel      must be open   OPEN
+
+      The two anchors cannot be wrong: the fit is forced through them. R21 is
+      the only reading that is free to disagree, which is exactly why it is the
+      one worth looking at. It is coloured green within 150 ohms of 4700, amber
+      to 400, red beyond.
+
+      The report clears on a touch, on the pedal, or after eight seconds.
+
+  11. If it says FAIL, the screen names which standard did not answer:
+
+        "1k standard open"      R20, or the drive/sense mux pair
+        "4.7k standard open"    R21
+        "100k standard open"    R22
+        "open channel is not open - a mux is stuck on"
+                                a mux output is shorted, or an enable line is
+                                stuck - suspect a bent pin on U1-U6 first
+        "100k reads below 1k"   R20 and R22 swapped in their positions
+
+      A bent-under pin on one of the six is far and away the most likely cause
+      of any of these. Power down and look along the rows again before
+      reaching for a meter.
+
+  12. The head map appears with every site OPEN. That is correct - nothing is
+      plugged into J1 or J2 yet.
+
+
+STEP 6 - THE FIRST REAL MEASUREMENT
+
+  13. Make a test lead that bridges J1 to J2. This is the part the old
+      instructions got wrong, so it is worth understanding why.
+
+      Nothing on the board connects the phantom connector (J1) to the cap
+      connector (J2) - checked against the board file. Every reading drives
+      current OUT through J1 and expects it BACK through J2; in use, the
+      phantom contact, the gel and the cap electrode close that loop. The old
+      test put a resistor inside one plug in J1 and a jumper inside a separate
+      plug in J2. Neither touches the other, so no current could flow and every
+      site would have read OPEN on a perfectly good board.
+
+      What you need: two DB25 MALE solder-cup plugs (J1 and J2 are female) and
+      a 4.7 kohm resistor. Solder the resistor, on short wires, from pin 1 of
+      plug A to pin 1 of plug B. Plug A goes in J1, plug B in J2. Pin 1 is Fp1
+      on both connectors.
+
+      Optional, and worth it if you have the parts - each extra lead tests one
+      more site and one more colour on the map:
+          pin 14 to pin 14 through 1 kohm     Fp2 should read ~1k    green
+          pin 22 to pin 22 through 6.8 kohm   Cz  should read ~6.8k  amber
+          pin 10 to pin 10 through 22 kohm    Fz  should read ~22k   red
+      Always the SAME pin number on both plugs: a lead from pin N to pin N is
+      one site. Pins 12, 13 and 25 are not connected on either connector.
+
+  14. Fp1 should read about 4.7 kohm and show green (4.7k is just inside the
+      5k pass mark). Every site without a lead stays OPEN and grey.
+
+      If Fp1 reads OPEN, check the lead with a meter first - pin 1 to pin 1,
+      plug to plug, should read 4.7k. If the lead is good, the fault is in
+      Fp1's drive or return mux channel, and pm_analog_probe's Cz screen can
+      be pointed at it.
+
+  15. Tap Fp1 and confirm the focus panel follows and shows the same value in
+      large type. Then tap the header and check the mode changes ONCE per tap
+      - that was fixed on 24 Oct and this is the first chance to see it.
+
+  16. SITE ZERO (added 27 Oct 2026). On the bench the 4.72 kohm lead on Fp1
+      read 5.2 k while the on-board 4.7 k standard read 4,708. The standards
+      all return through U6; sites 0-15 return through U5, and the two chips'
+      switch resistance differs by a few hundred ohms at 3.3 V. The firmware
+      now has a per-site zero for this:
+
+        a. Get a STRAIGHT-THROUGH DB25 male-to-male cable, all 25 pins wired
+           (pin N to pin N). Not a null-modem cable, not a printer cable.
+        b. Plug it between J1 and J2, power on, and on the calibration PASS
+           screen tap ZERO SITES, then MEASURE. It reads all 22 paths in about
+           six seconds and lists them; expect values within a few hundred ohm
+           of zero, some negative. Any site showing OPEN means that pin of the
+           cable is not wired - check the cable, then RETRY.
+        c. Tap SAVE. The values are kept across power cycles and subtracted
+           from every Mode A reading from then on. The PASS screen reports
+           "Site zero stored".
+        d. Put the 4.7 k lead back on pin 1. Fp1 should now read about 4.7 k.
+
+      Repeat the zero only if U1-U6, U8 or a DB25 jack is ever changed.
+
+
+WHAT TO WATCH FOR, NOW THAT READINGS ARE REAL
+
+  THE LED CAVEAT, finally testable. When the indicator LEDs were fixed to hold
+  their state rather than blink, LED current began flowing DURING a measurement
+  instead of being switched off, through the same expander that drives the
+  SW1-SW6 analog switches. At 2.5 uA test current this should not matter.
+
+  Step 5 is the first time you can check. Tap the title bar to switch between
+  Mode A and Mode B and watch whether a site's reading shifts with the mode. If
+  it does, that is the first thing to suspect, and it is a one-line revert.
+
+  THE MID-SCALE CHECK IS YOUR LINEARITY TELL. If R21 reads well off 4700 while
+  both anchors are perfect, the chain is not linear between them. Suspect R21
+  itself first, then the mux channel carrying it.
+
+  AFTER STEP 6: set SALT_BRIDGE back to 1, and the thresholds (50 kohm trip,
+  80 kohm clear) become tunable against a real gel bridge for the first time.
+  Those two numbers were guesses until now.

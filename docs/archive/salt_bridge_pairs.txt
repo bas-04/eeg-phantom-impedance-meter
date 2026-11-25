@@ -1,0 +1,118 @@
+SALT-BRIDGE PAIR TABLE - EEG head phantom impedance meter, Rev B
+======================================================================
+
+31 pairs. Ranked by mean downhill gradient = height drop / arc length,
+computed on a hemisphere model where the flattened 10-20 map radius is
+the polar angle from the vertex (map r=1 at ear level = 90 degrees).
+
+SURFACE TILT BY SITE (0 = flat top of head, 90 = vertical wall)
+
+   Cz      0.0 deg   height +1.000 R
+   Fz     45.0 deg   height +0.707 R
+   C3     45.0 deg   height +0.707 R
+   C4     45.0 deg   height +0.707 R
+   Pz     45.0 deg   height +0.707 R
+   F3     59.8 deg   height +0.504 R
+   F4     59.8 deg   height +0.504 R
+   P3     59.8 deg   height +0.504 R
+   P4     59.8 deg   height +0.504 R
+   GND    72.0 deg   height +0.309 R
+   O1     84.0 deg   height +0.105 R
+   O2     84.0 deg   height +0.105 R
+   Fp1    89.9 deg   height +0.001 R
+   Fp2    89.9 deg   height +0.001 R
+   T3     90.0 deg   height +0.000 R
+   T4     90.0 deg   height +0.000 R
+   F7     90.2 deg   height -0.003 R
+   F8     90.2 deg   height -0.003 R
+   T5     90.2 deg   height -0.003 R
+   T6     90.2 deg   height -0.003 R
+   A1    118.3 deg   height -0.474 R
+   A2    118.3 deg   height -0.474 R
+
+Two distinct risk mechanisms are represented, and they rank oppositely:
+
+  RUNNING  gel flows downhill. Driven by slope, so the peripheral pairs
+           dominate - the whole outer ring sits on a near-vertical wall.
+  SMEARING gel spreads sideways. Driven by proximity, independent of
+           slope. This is the Cz cluster, the flattest pairs in the set.
+
+Priority tiers for the interleaved sweep (test high-risk pairs more often):
+   tier 1  gradient >= 0.80   15 pairs   test every cycle
+   tier 2  gradient 0.60-0.80  8 pairs   test every 2nd cycle
+   tier 3  gradient <  0.60    8 pairs   test every 3rd cycle
+   mean measurements per cycle: 21.7
+
+CORRECTED 24 OCT 2026: Fp2 is DB25 pin 14 on both J1 and J2, checked against
+the Rev B board file. Earlier copies of this table listed it as pin 12, which
+is not connected to anything - a test resistor wired there shows nothing. Pins
+12, 13 and 25 are unused on both connectors. The firmware was never affected;
+its pair table uses site numbers, not pins.
+
+GND EXCLUDED FROM CHECKING (5 Nov 2026): the three pairs involving GND
+(Fz-GND, GND-Fp1, GND-Fp2) are still listed below but are NOT scanned by
+default. On the phantom the GND and Fz inserts are 4 mm apart, so gel reaching
+the GND insert is close to unavoidable, and the conductive insert completes a
+bridge that on a real head would need gel to reach the other electrode's gel.
+GND is still measured and must still be prepped. To check the GND pairs again,
+set BRIDGE_CHECK_GND to true in phantom_meter_v2.ino.
+
+BENCH TEST: one resistor, 470 ohm to 1 kohm, from the J1 pin to the J2
+pin shown. J1 is the PHANTOM cable, J2 the ELECTRO-CAP cable. Direction
+matters for a two-terminal resistor: wire J1 on the uphill site and J2 on
+the downhill site, matching the firmware's table order. A real gel bridge
+wets all four nodes and is detected either way; a lone resistor is not.
+
+PAIR         grad   arc tier  J1 pin (drive) J2 pin (return) note
+--------------------------------------------------------------------------------------
+C4-T4        0.90  0.79    1  16 (C4)        20 (T4)        
+C3-T3        0.90  0.79    1  3 (C3)         7 (T3)         
+T3-A1        0.88  0.54    1  7 (T3)         11 (A1)        
+T4-A2        0.88  0.54    1  20 (T4)        24 (A2)        
+Fz-Fp1       0.85  0.83    1  10 (Fz)        1 (Fp1)        added
+Fz-Fp2       0.85  0.83    1  10 (Fz)        14 (Fp2)       added
+Fz-GND       0.84  0.47    1  10 (Fz)        9 (GND)        
+F4-F8        0.84  0.60    1  15 (F4)        19 (F8)        
+P4-T6        0.84  0.60    1  17 (P4)        21 (T6)        added
+F3-F7        0.84  0.60    1  2 (F3)         6 (F7)         
+P3-T5        0.84  0.60    1  4 (P3)         8 (T5)         added
+F4-Fp2       0.82  0.61    1  15 (F4)        14 (Fp2)       added
+F3-Fp1       0.82  0.61    1  2 (F3)         1 (Fp1)        added
+Pz-O1        0.81  0.74    1  23 (Pz)        5 (O1)         
+Pz-O2        0.81  0.74    1  23 (Pz)        18 (O2)        
+P4-O2        0.78  0.51    2  17 (P4)        18 (O2)        
+P3-O1        0.78  0.51    2  4 (P3)         5 (O1)         
+T5-A1        0.76  0.62    2  8 (T5)         11 (A1)        added
+T6-A2        0.76  0.62    2  21 (T6)        24 (A2)        added
+C3-T5        0.74  0.97    2  3 (C3)         8 (T5)         
+C4-T6        0.74  0.97    2  16 (C4)        21 (T6)        
+GND-Fp2      0.70  0.44    2  9 (GND)        14 (Fp2)       
+GND-Fp1      0.70  0.44    2  9 (GND)        1 (Fp1)        
+Cz-F3        0.48  1.04    3  22 (Cz)        2 (F3)         
+Cz-F4        0.48  1.04    3  22 (Cz)        15 (F4)        
+Cz-P4        0.48  1.04    3  22 (Cz)        17 (P4)        
+Cz-P3        0.48  1.04    3  22 (Cz)        4 (P3)         
+Cz-Fz        0.37  0.79    3  22 (Cz)        10 (Fz)        
+Cz-C4        0.37  0.79    3  22 (Cz)        16 (C4)        
+Cz-Pz        0.37  0.79    3  22 (Cz)        23 (Pz)        
+Cz-C3        0.37  0.79    3  22 (Cz)        3 (C3)         
+
+DIRECTION IS DIAGNOSTIC. Every pair has an uphill and a downhill site, so
+the display can draw an arrow rather than a plain line and tell the student
+which end to clean first - gel pools at the downhill site.
+
+DELIBERATELY EXCLUDED (decided 14 Oct 2026, do not re-add without cause):
+   Fp1-Fp2  and  O1-O2.  Both sites of each pair are at the same height, so
+   gradient is zero and the risk is pure sideways smearing. The midline
+   routes are already covered: GND-Fp1 and GND-Fp2 down the forehead,
+   Pz-O1 and Pz-O2 down the occiput.
+
+THRESHOLD: trip below ~50 kohm, clear above ~80 kohm. Hysteresis is
+required or a marginal bridge chatters. Tune after measuring a real gel
+bridge on the finished phantom; the value depends on contact geometry.
+
+MODEL CAVEAT: hemisphere. A printed head is more ellipsoidal - flatter on
+top, steeper on the sides - which sharpens the contrast rather than
+softening it. A real head also has a face below Fp1/Fp2 rather than
+continuing spherically. The ranking is robust to both; the absolute
+gradient numbers are not.
